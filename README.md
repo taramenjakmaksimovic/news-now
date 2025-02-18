@@ -32,7 +32,7 @@ https://github.com/user-attachments/assets/e6adede4-b231-4c11-a05b-bef443e0ca11
 2. **Open in Android Studio**: <br>
 Select "Open an Existing Project" and navigate to the cloned directory.
 3. **Set your API key**: <br>
-Navigate to app/src/main/java/com/example/newsnow/Constant.kt and replace "YOUR_API_KEY" with your own API key.
+Navigate to `app/src/main/java/com/example/newsnow/Constant.kt` and replace `"YOUR_API_KEY"` with your own API key.
 4. **Run the app**: <br>
 Select your emulator or connected device and click "Run" button.
 
