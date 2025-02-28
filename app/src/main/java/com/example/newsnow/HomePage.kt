@@ -1,4 +1,4 @@
-package com.example.news
+package com.example.newsnow
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll

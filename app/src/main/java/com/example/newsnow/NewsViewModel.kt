@@ -1,4 +1,4 @@
-package com.example.news
+package com.example.newsnow
 
 import android.util.Log
 import androidx.lifecycle.LiveData
