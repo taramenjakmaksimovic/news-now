@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,6 +49,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -189,7 +191,7 @@ fun ArticleItem(article: Article, navController: NavHostController){
 
 }
 @Composable
-fun CategoriesBar(newsViewModel: NewsViewModel){
+fun CategoriesBar(newsViewModel: NewsViewModel) {
     var searchQuery by remember {
         mutableStateOf("")
     }
@@ -197,7 +199,8 @@ fun CategoriesBar(newsViewModel: NewsViewModel){
     var isSearchExpanded by remember {
         mutableStateOf(false)
     }
-        val categoriesList= listOf(
+
+    val categoriesList = listOf(
         "GENERAL",
         "BUSINESS",
         "ENTERTAINMENT",
@@ -206,59 +209,74 @@ fun CategoriesBar(newsViewModel: NewsViewModel){
         "SPORTS",
         "TECHNOLOGY"
     )
+
     Row(
         modifier = Modifier.fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
         verticalAlignment = Alignment.CenterVertically
-    ){
-        if(isSearchExpanded){
-            OutlinedTextField(
-                modifier = Modifier.padding(8.dp)
+    ) {
+        if (isSearchExpanded) {
+            Box(
+                modifier = Modifier
+                    .padding(8.dp)
                     .height(54.dp)
-                    .border(1.dp, DarkPurple, CircleShape)
-                    .clip(CircleShape),
-                value = searchQuery,
-                onValueChange = {
-                searchQuery=it
-            },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        isSearchExpanded=false
-                        if(searchQuery.isNotEmpty()){
-                            newsViewModel.fetchEverythingWithQuery(searchQuery)
+                    .width(250.dp)
+                    .clip(CircleShape)
+                    .border(2.dp, DarkPurple, CircleShape)
+                    .background(Color.White)
+            ) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxSize()
+                        .padding(2.dp),
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    textStyle = TextStyle(color = DarkPurple),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                        disabledBorderColor = Color.Transparent,
+                        errorBorderColor = Color.Transparent,
+                        cursorColor = DarkPurple
+                    ),
+                    trailingIcon = {
+                        IconButton(onClick = {
+                            isSearchExpanded = false
+                            if (searchQuery.isNotEmpty()) {
+                                newsViewModel.fetchEverythingWithQuery(searchQuery)
+                            }
+                        }) {
+                            Icon(imageVector = Icons.Default.Search, contentDescription = "Search icon")
                         }
-                    }) {
-                        Icon(imageVector = Icons.Default.Search, contentDescription = "Search icon")
-                    }
-                }
+                    },
+                    shape = CircleShape,
+                    singleLine = true
                 )
-
+            }
         }
         else{
             IconButton(onClick = {
-                isSearchExpanded=true
+                isSearchExpanded = true
             }) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = "Search icon")
+                Icon(imageVector = Icons.Default.Search,
+                    contentDescription = "Search icon",
+                    tint = DarkPurple
+                )
             }
-
         }
 
-        categoriesList.forEach{ category ->
+        categoriesList.forEach { category ->
             Button(onClick = {
-                newsViewModel.fetchNewsTopHeadlines(category)
-            },
+                    newsViewModel.fetchNewsTopHeadlines(category)
+                          },
                 modifier = Modifier.padding(4.dp).height(54.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = DarkPurple,
                     contentColor = Color.White
                 )
-                ) {
-                Text(text=category,
+            ) {
+                Text(text = category,
                     fontFamily = FontFamily.Serif)
-
             }
-
         }
     }
-
 }
