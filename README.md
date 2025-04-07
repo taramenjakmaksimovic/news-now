@@ -31,8 +31,8 @@ https://github.com/user-attachments/assets/38393635-6dff-47c6-a704-9a9e0e82cd3d
 ### Installation  
 
 1. **Clone the Repository**:
-   ```bash  
-    https://github.com/taramenjakmaksimovic/news-now.git
+   ```bash
+   git clone https://github.com/taramenjakmaksimovic/news-now.git
 2. **Open in Android Studio**: <br>
 Select "Open an Existing Project" and navigate to the cloned directory.
 3. **Set your API key**: <br>
